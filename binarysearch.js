@@ -51,3 +51,61 @@ const binarySearchHelper = (array, target, left, right) => {
     return binarySearchHelper(array, target, mid + 1, right);
   }
 };
+
+/*
+Given an integer n, return whether n = k * k for some integer k.
+This should be done without using built-in square root function.
+
+Constraints
+0 ≤ n < 2 ** 31
+
+Example 1
+
+Input
+n = 25
+Output
+true
+
+Explanation
+25 = 5 * 5
+
+ */
+
+const findPerfectSquare = (target) => {
+  let left = 0;
+  let right = target;
+  let mid = Math.floor((left + right) / 2);
+  for (let i = left; i <= right; i++) {
+    console.log(i * i);
+    if (target === i * i) {
+      return true;
+    } else if (target < i * i) {
+      console.log(mid);
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+  return false;
+};
+findPerfectSquare(49);
+
+//recursive solution
+
+const findPerfectSquare = (target) => {
+  return findPerfectSquareHelper(target, 0, target);
+};
+const findPerfectSquareHelper = (target, left, right) => {
+  if (left > right) {
+    return false;
+  }
+  let mid = Math.floor((left + right) / 2);
+  if (target === mid * mid) {
+    return true;
+  } else if (target < mid * mid) {
+    return findPerfectSquareHelper(target, left, mid - 1);
+  } else {
+    return findPerfectSquareHelper(target, mid + 1, right);
+  }
+};
+findPerfectSquare(49);
