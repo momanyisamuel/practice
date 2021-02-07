@@ -90,6 +90,28 @@ const findPerfectSquare = (target) => {
 };
 findPerfectSquare(49);
 
+/*
+Given an integer n, return whether n = k * k for some integer k.
+This should be done without using built-in square root function.
+
+Constraints
+0 ≤ n < 2 ** 31
+
+Example 1
+
+Input
+n = 25
+Output
+true
+
+Explanation
+25 = 5 * 5
+*/
+
+/*
+Given an integer n, return whether n = k * k for some integer k.
+This should be done without using built-in square root function. */
+
 //recursive solution
 
 const findPerfectSquare = (target) => {
@@ -108,4 +130,30 @@ const findPerfectSquareHelper = (target, left, right) => {
     return findPerfectSquareHelper(target, mid + 1, right);
   }
 };
-findPerfectSquare(49);
+
+const findFixedPoint = (nums) => {
+  let ans;
+  let left = 0;
+  let right = nums.length - 1;
+  if (right === 0) {
+    return 0;
+  }
+  for (let i = left; i <= right; i++) {
+    let mid = Math.floor(left + (right - left) / 2);
+    if (nums[mid] < mid) {
+      left = mid + 1;
+    } else if (nums[mid] > mid) {
+      right = mid - 1;
+    } else {
+      ans = mid;
+      right = mid - 1;
+    }
+  }
+  if (!ans) {
+    return -1;
+  } else {
+    return ans;
+  }
+};
+
+findFixedPoint([-5, -2, 0, 3, 4]);
