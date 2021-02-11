@@ -226,3 +226,55 @@ let rb = [2, 9];
 let rc = [5, 4];
 
 minDiffr(ra, rb, rc);
+
+// Given a list of integers nums sorted in ascending order, return whether it can be split into any number of subsequences such that each subsequence has at least length 3 and is consecutively increasing.
+
+// Constraints
+
+// n ≤ 100,000 where n is the length of nums
+// Example 1
+// Input
+// nums = [1, 2, 3, 3, 4, 5, 6]
+// Output
+// true
+// Explanation
+// We can split the list to [1, 2, 3] and [3, 4, 5, 6].
+
+// We iterate through the array once to get the frequency of all the elements in the array
+// We iterate through the array once more and for each element we either see if it can be
+//  appended to a previously constructed consecutive sequence or if it can be the start of a new consecutive sequence.
+//  If neither are true, then we return false.
+
+const isPossible = (nums) => {
+  let freq = new Map();
+  let appendfreq = new Map();
+  for (const i of nums) {
+    freq.set(i, getOrDefault(freq, i, 0) + 1);
+  }
+  for (const i of nums) {
+    if (freq.get(i) == 0) continue;
+    if (getOrDefault(appendfreq, i, 0) > 0) {
+      appendfreq.set(i, appendfreq.get(i) - 1);
+      appendfreq.set(i + 1, getOrDefault(appendfreq, i + 1, 0) + 1);
+    } else if (
+      getOrDefault(freq, i + 1, 0) > 0 &&
+      getOrDefault(freq, i + 2, 0) > 0
+    ) {
+      freq.set(i + 1, freq.get(i + 1) - 1);
+      freq.set(i + 2, freq.get(i + 2) - 1);
+      appendfreq.set(i + 3, getOrDefault(appendfreq, i + 3, 0) + 1);
+    } else {
+      return false;
+    }
+    freq.set(i, freq.get(i) - 1);
+  }
+  return true;
+};
+
+// rewrite java HashMap.getOrDefault() logic
+const getOrDefault = (map, k, v) => {
+  if (!map.has(k)) {
+    return v;
+  }
+  return map.get(k);
+};
