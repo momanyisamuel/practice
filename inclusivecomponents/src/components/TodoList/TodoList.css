@@ -1,0 +1,24 @@
+.empty-state,
+ul:empty {
+  display: none;
+}
+
+ul:empty + .empty-state {
+  display: block;
+}
+::-webkit-input-placeholder {
+  color: #444;
+  font-style: italic;
+}
+::-moz-placeholder {
+  color: #444;
+  font-style: italic;
+}
+:-ms-input-placeholder {
+  color: #444;
+  font-style: italic;
+}
+:-moz-placeholder {
+  color: #444;
+  font-style: italic;
+}

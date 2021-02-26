@@ -1,10 +1,10 @@
 import React from "react";
-import Toggle from "../Toggle/Toggle";
+import TodoList from "../TodoList/TodoList";
 
 const App = () => {
   return (
     <>
-      <Toggle />
+      <TodoList />
     </>
   );
 };
